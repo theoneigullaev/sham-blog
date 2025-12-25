@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mt-10 relative">
+    <div class="absolute -top-20 -left-20 w-64 h-64 bg-violet-600/20 blur-[100px] rounded-full"></div>
+    <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-fuchsia-600/20 blur-[100px] rounded-full"></div>
+
+    <div class="glass-card relative z-10 rounded-[40px] p-12 border border-white/10 shadow-2xl">
+        <h2 class="text-4xl font-black mb-2 text-center">
+            {% if 'login' in request.path %}Welcome Back{% else %}Join VIBE{% endif %}
+        </h2>
+        <p class="text-zinc-500 text-center mb-10 font-medium">Твой микромир начинается здесь.</p>
+        
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="neo-btn w-full py-4 rounded-2xl font-black text-lg mt-6 shadow-xl">
+                {% if 'login' in request.path %}Войти{% else %}Создать аккаунт{% endif %}
+            </button>
+        </form>
+
+        <div class="mt-8 text-center">
+            {% if 'login' in request.path %}
+                <span class="text-zinc-500">Нет аккаунта?</span> <a href="{% url 'register_view' %}" class="text-fuchsia-400 font-bold hover:underline">Регистрация</a>
+            {% else %}
+                <span class="text-zinc-500">Есть аккаунт?</span> <a href="{% url 'login_view' %}" class="text-violet-400 font-bold hover:underline">Войти</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

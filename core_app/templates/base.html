@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAM Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #09090b 100%);
+            color: #f4f4f5; 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neo-btn {
+            background: linear-gradient(90deg, #8b5cf6, #d946ef);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .neo-btn:hover {
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        /* Стили формы: аккуратные вертикальные отступы */
+        form p {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; 
+            margin-bottom: 24px; 
+        }
+        label {
+            font-weight: 600;
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            margin-left: 4px;
+        }
+        input, textarea { 
+            background: rgba(0, 0, 0, 0.4) !important;
+            border: 1px solid #3f3f46 !important;
+            color: white !important;
+            border-radius: 14px !important;
+            padding: 12px 16px !important;
+            width: 100% !important;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus { 
+            border-color: #8b5cf6 !important; 
+            background: rgba(0, 0, 0, 0.6) !important;
+            outline: none; 
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="sticky top-0 z-50 border-b border-white/10 glass-card">
+        <div class="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="{% url 'post_list' %}" class="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-fuchsia-500">
+                SHAM.
+            </a>
+            
+            <div class="flex items-center gap-8">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'post_list' %}" class="hover:text-violet-400 transition"><i data-lucide="layout-grid"></i></a>
+                    <a href="{% url 'create_post_view' %}" class="neo-btn p-2 rounded-xl text-white"><i data-lucide="plus"></i></a>
+                    <a href="{% url 'logout_view' %}" class="text-zinc-500 hover:text-red-400 transition"><i data-lucide="log-out"></i></a>
+                {% else %}
+                    <a href="{% url 'login_view' %}" class="font-semibold hover:text-violet-400 transition">Войти</a>
+                    <a href="{% url 'register_view' %}" class="neo-btn px-6 py-2 rounded-full font-bold">Начать</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-4 py-12">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

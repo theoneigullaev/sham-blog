@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card rounded-[40px] p-10 border-t-violet-500/30">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="w-12 h-1 bg-violet-500 rounded-full"></div>
+        <h1 class="text-3xl font-black">Сделать пост</h1>
+    </div>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        <div class="space-y-2">
+            {{ form.as_p }}
+        </div>
+        
+        <button type="submit" class="neo-btn w-full py-4 rounded-2xl font-black text-lg tracking-tight">
+            Опубликовать в ленту
+        </button>
+        <a href="{% url 'post_list' %}" class="block text-center text-zinc-500 font-bold hover:text-white transition mt-4">Отмена</a>
+    </form>
+</div>
+{% endblock %}
